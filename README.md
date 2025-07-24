@@ -8,7 +8,7 @@ paste <(bcftools query -l apoe_cluster.vcf.gz) \
 
 bcftools view -S apoe3.ids -Oz -o apoe3_cluster.vcf.gz apoe_cluster.vcf.gz
 
-bcftools query -f '%CHROM\t%POS\t%REF\t%ALT[\t%GT]\n' apoe4_cluster.vcf.gz | awk '{
+bcftools query -f '%CHROM\t%POS\t%REF\t%ALT[\t%GT]\n' apoe3_cluster.vcf.gz | awk '{
   n_homref=0; n_het=0; n_homalt=0; n_miss=0;
   for(i=5;i<=NF;i++) {
     if($i=="0/0" || $i=="0|0") n_homref++;
@@ -22,5 +22,5 @@ bcftools query -f '%CHROM\t%POS\t%REF\t%ALT[\t%GT]\n' apoe4_cluster.vcf.gz | awk
   } else {
     printf "%s\t%s\t%s\t%s\t%d\t%d\t%d\t%d\tNA\tNA\tNA\n", $1,$2,$3,$4,n_homref,n_het,n_homalt,n_miss;
   }
-}' | sort -k9,9n > fr
+}' | sort -k9,9n > apoe3_fr
 ```
