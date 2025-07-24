@@ -23,4 +23,7 @@ bcftools query -f '%CHROM\t%POS\t%REF\t%ALT[\t%GT]\n' apoe3_cluster.vcf.gz | awk
     printf "%s\t%s\t%s\t%s\t%d\t%d\t%d\t%d\tNA\tNA\tNA\n", $1,$2,$3,$4,n_homref,n_het,n_homalt,n_miss;
   }
 }' | sort -k9,9n > apoe3_fr
+
+cut -f1-4 apoe3_fr | awk -F'\t' 'OFS="\t" {gsub(/^chr/, "", $1); print $1, $2, ".", $3, $4}' > apoe3_fr_an
+
 ```
