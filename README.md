@@ -11,14 +11,14 @@ paste <(bcftools query -l apoe_cluster.vcf.gz) \
 
 ~/data/soft/annovar/convert2annovar.pl apoe34_cluster.vcf.gz -format vcf -allsample -withfreq > an/apoe34
 
+bcftools view -S apoe3.ids -Oz -o apoe3_cluster.vcf.gz apoe_cluster.vcf.gz
+
 ~/data/soft/annovar/table_annovar.pl an/apoe34 ~/data/soft/annovar/humandb -buildver hg38 -out an/apoe34.annovar -protocol refGeneWithVer -operation g -nastring . -vcfinput
 
 bcftools view -r chr19:XXX apoe34_cluster.vcf.gz |   bcftools query -f '[%SAMPLE\t%GT\n]' |   awk '$2=="0/1"{print $1}'
 
 
 
-
-bcftools view -S apoe3.ids -Oz -o apoe3_cluster.vcf.gz apoe_cluster.vcf.gz
 
 bcftools query -f '%CHROM\t%POS\t%REF\t%ALT[\t%GT]\n' apoe3_cluster.vcf.gz | awk '{
   n_homref=0; n_het=0; n_homalt=0; n_miss=0;
