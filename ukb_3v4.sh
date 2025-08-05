@@ -17,4 +17,5 @@ cp rs429358_hom.fam rs429358_hom.fam.backup
 cp rs429358_hom_geno_as_pheno.fam rs429358_hom.fam
 awk '{$6 = ($6 == 0 ? 1 : $6); print $0}' rs429358_hom.fam > rs429358_hom_casecontrol.fam
 cp rs429358_hom_casecontrol.fam rs429358_hom.fam
-plink2 --bfile rs429358_hom --glm sex allow-no-covars --threads 32 --out diff_snps_rs429358_hom
+mkdir glm
+plink2 --bfile rs429358_hom --glm sex allow-no-covars --threads 32 --out glm/diff_snps_rs429358_hom
